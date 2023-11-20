@@ -2,10 +2,13 @@ package pe.cibertec.ProyectoFinal.ApiCarrera.serviceImpl;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pe.cibertec.ProyectoFinal.ApiCarrera.dao.CarreraRepository;
 import pe.cibertec.ProyectoFinal.ApiCarrera.entity.Carrera;
 import pe.cibertec.ProyectoFinal.ApiCarrera.exception.EntityNotFoundException;
 import pe.cibertec.ProyectoFinal.ApiCarrera.service.CarreraService;
+
+@Service
 
 public class CarreraServiceImpl implements CarreraService{
     
