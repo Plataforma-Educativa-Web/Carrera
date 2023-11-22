@@ -7,5 +7,4 @@ import pe.cibertec.ProyectoFinal.ApiCarrera.entity.Carrera;
 public interface CarreraRepository extends JpaRepository<Carrera, Long> {
     
     Optional<Carrera> findByNombre (String nombre);
-    
 }

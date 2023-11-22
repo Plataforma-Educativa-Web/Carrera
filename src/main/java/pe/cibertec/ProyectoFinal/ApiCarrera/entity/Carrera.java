@@ -16,6 +16,7 @@ public class Carrera {
     
     private Long id;
     private String nombre;
+    private Long codigo;
     private String descripcion;
     private String duracion;
     

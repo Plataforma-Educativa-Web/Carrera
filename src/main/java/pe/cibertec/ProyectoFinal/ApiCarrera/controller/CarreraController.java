@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pe.cibertec.ProyectoFinal.ApiCarrera.dto.CarreraDTO;
 import pe.cibertec.ProyectoFinal.ApiCarrera.entity.Carrera;
+import pe.cibertec.ProyectoFinal.ApiCarrera.entity.Curso;
+import pe.cibertec.ProyectoFinal.ApiCarrera.service.ApiRestClient;
 import pe.cibertec.ProyectoFinal.ApiCarrera.service.CarreraService;
 
 @RestController
@@ -21,7 +24,12 @@ import pe.cibertec.ProyectoFinal.ApiCarrera.service.CarreraService;
 public class CarreraController {
 
     @Autowired
+    
     private CarreraService carreraService;
+
+    @Autowired
+    
+    private ApiRestClient apiRestClient;
     
     @GetMapping("/findAll")
     
@@ -30,6 +38,24 @@ public class CarreraController {
         return new ResponseEntity<>(carreraService.findAll(),HttpStatus.OK);
         
     }
+    
+    @GetMapping("/findAllCurso")
+    
+    public ResponseEntity<List<Curso>> findAllCurso() {
+        
+        return new ResponseEntity<>(apiRestClient.findAllCurso(),HttpStatus.OK);
+        
+    }
+    
+    
+    @GetMapping("/findById/{id}")
+    
+    public ResponseEntity<CarreraDTO> findById(@PathVariable Long id) {
+        
+        return new ResponseEntity<>(carreraService.findById(id), HttpStatus.OK);
+        
+    }
+    
     
     @GetMapping("/buscarPorId/{id}")
     
