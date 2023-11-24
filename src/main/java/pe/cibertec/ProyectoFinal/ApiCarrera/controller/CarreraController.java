@@ -14,12 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pe.cibertec.ProyectoFinal.ApiCarrera.dto.CarreraDTO;
 import pe.cibertec.ProyectoFinal.ApiCarrera.entity.Carrera;
-import pe.cibertec.ProyectoFinal.ApiCarrera.entity.Curso;
-import pe.cibertec.ProyectoFinal.ApiCarrera.service.ApiRestClient;
 import pe.cibertec.ProyectoFinal.ApiCarrera.service.CarreraService;
 
 @RestController
-@RequestMapping("/api/v1/carrera")
+@RequestMapping("api/v1/carrera")
 
 public class CarreraController {
 
@@ -27,9 +25,6 @@ public class CarreraController {
     
     private CarreraService carreraService;
 
-    @Autowired
-    
-    private ApiRestClient apiRestClient;
     
     @GetMapping("/findAll")
     
@@ -39,11 +34,11 @@ public class CarreraController {
         
     }
     
-    @GetMapping("/findAllCurso")
+    @GetMapping("/findByCodigoC/{codigoC}")
     
-    public ResponseEntity<List<Curso>> findAllCurso() {
+    public ResponseEntity<Carrera> findByCodigoC(@PathVariable Long codigoC) {
         
-        return new ResponseEntity<>(apiRestClient.findAllCurso(),HttpStatus.OK);
+        return new ResponseEntity<>(carreraService.findByCodigoC(codigoC), HttpStatus.OK);
         
     }
     

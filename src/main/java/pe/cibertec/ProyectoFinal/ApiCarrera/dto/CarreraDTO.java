@@ -8,6 +8,7 @@ import pe.cibertec.ProyectoFinal.ApiCarrera.entity.Curso;
 public class CarreraDTO {
     
     private Long id;
+    private Long codigoC;
     private String nombre;
     private String descripcion;
     private String duracion;

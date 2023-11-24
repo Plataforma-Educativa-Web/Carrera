@@ -10,6 +10,8 @@ public interface CarreraService {
     
     public CarreraDTO findById(Long id);
     
+    public Carrera findByCodigoC(Long codigoC);
+    
     public Carrera buscarPorId(Long id);
 
     public Carrera findByNombre(String nombre);

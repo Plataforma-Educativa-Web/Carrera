@@ -1,4 +1,4 @@
-package pe.cibertec.ProyectoFinal.ApiCarrera.service;
+package pe.cibertec.ProyectoFinal.ApiCarrera.restClient;
 
 import java.util.List;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -8,7 +8,7 @@ import pe.cibertec.ProyectoFinal.ApiCarrera.entity.Curso;
 
 @FeignClient (value = "curso-service", url = "http://localhost:8085/")
 
-public interface ApiRestClient {
+public interface CursoRestClient {
     
     @GetMapping("api/v1/curso/findByCodigo/{codigo}")
     Curso findByCodigo(@PathVariable Long codigo);

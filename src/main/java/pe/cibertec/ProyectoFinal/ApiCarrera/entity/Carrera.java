@@ -10,15 +10,15 @@ import lombok.Data;
 @Data
 
 public class Carrera {
-    
+
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
-    
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
+    private Long codigoC;
     private String nombre;
     private Long codigo;
     private String descripcion;
     private String duracion;
-    
-    
+
 }

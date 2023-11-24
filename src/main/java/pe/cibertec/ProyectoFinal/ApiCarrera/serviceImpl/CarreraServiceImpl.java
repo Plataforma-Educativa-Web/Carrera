@@ -8,8 +8,8 @@ import pe.cibertec.ProyectoFinal.ApiCarrera.dto.CarreraDTO;
 import pe.cibertec.ProyectoFinal.ApiCarrera.entity.Carrera;
 import pe.cibertec.ProyectoFinal.ApiCarrera.entity.Curso;
 import pe.cibertec.ProyectoFinal.ApiCarrera.exception.EntityNotFoundException;
-import pe.cibertec.ProyectoFinal.ApiCarrera.service.ApiRestClient;
 import pe.cibertec.ProyectoFinal.ApiCarrera.service.CarreraService;
+import pe.cibertec.ProyectoFinal.ApiCarrera.restClient.CursoRestClient;
 
 @Service
 
@@ -21,7 +21,7 @@ public class CarreraServiceImpl implements CarreraService {
 
     @Autowired
     
-    private ApiRestClient apiRestClient;
+    private CursoRestClient apiRestClient;
     
     
     @Override
@@ -37,9 +37,6 @@ public class CarreraServiceImpl implements CarreraService {
         
     }
     
-    
-    
-
     @Override
     public CarreraDTO findById(Long id) {
         
@@ -50,6 +47,7 @@ public class CarreraServiceImpl implements CarreraService {
         CarreraDTO carreraDTO = new CarreraDTO();
         
         carreraDTO.setId(carrera.getId());
+        carreraDTO.setCodigoC(carrera.getCodigoC());
         carreraDTO.setNombre(carrera.getNombre());
         carreraDTO.setDescripcion(carrera.getDescripcion());
         carreraDTO.setDuracion(carrera.getDuracion());
@@ -82,6 +80,8 @@ public class CarreraServiceImpl implements CarreraService {
     public Carrera actualizarCarrera(Carrera carrera) {
 
         var CarreraF = carreraRepository.findById(carrera.getId()).get();
+        CarreraF.setCodigoC(carrera.getCodigoC());
+        CarreraF.setCodigo(carrera.getCodigo());
         CarreraF.setNombre(carrera.getNombre());
         CarreraF.setDescripcion(carrera.getDescripcion());
         CarreraF.setDuracion(carrera.getDuracion());
@@ -97,6 +97,13 @@ public class CarreraServiceImpl implements CarreraService {
 
         carreraRepository.delete(CarreraF);
 
+    }
+
+    @Override
+    public Carrera findByCodigoC(Long codigoC) {
+        
+        return carreraRepository.findByCodigoC(codigoC).orElseThrow(() -> new EntityNotFoundException("Carrera no encontrada con el Codigo"+codigoC.toString()));
+        
     }
 
 }
