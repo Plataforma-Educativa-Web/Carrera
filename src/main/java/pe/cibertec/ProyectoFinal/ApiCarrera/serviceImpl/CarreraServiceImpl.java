@@ -1,6 +1,7 @@
 package pe.cibertec.ProyectoFinal.ApiCarrera.serviceImpl;
 
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pe.cibertec.ProyectoFinal.ApiCarrera.dao.CarreraRepository;
@@ -12,6 +13,7 @@ import pe.cibertec.ProyectoFinal.ApiCarrera.service.CarreraService;
 import pe.cibertec.ProyectoFinal.ApiCarrera.restClient.CursoRestClient;
 
 @Service
+@Slf4j
 
 public class CarreraServiceImpl implements CarreraService {
 
@@ -20,45 +22,48 @@ public class CarreraServiceImpl implements CarreraService {
     private CarreraRepository carreraRepository;
 
     @Autowired
-    
+
     private CursoRestClient apiRestClient;
-    
-    
+
     @Override
     public List<Carrera> findAll() {
+        log.info("Obteniendo todas las carreras");
 
         return (List<Carrera>) carreraRepository.findAll();
 
     }
-    
+
     public List<Curso> findAllCurso() {
-        
+        log.info("Obteniendo todos los cursos");
+
         return (List<Curso>) apiRestClient.findAllCurso();
-        
+
     }
-    
+
     @Override
     public CarreraDTO findById(Long id) {
-        
+        log.info("Obteniendo todos los cursos");
+
         Carrera carrera = carreraRepository.findById(id).get();
-        
+
         Curso curso = apiRestClient.findByCodigo(carrera.getCodigo());
-        
+
         CarreraDTO carreraDTO = new CarreraDTO();
-        
+
         carreraDTO.setId(carrera.getId());
         carreraDTO.setCodigoC(carrera.getCodigoC());
         carreraDTO.setNombre(carrera.getNombre());
         carreraDTO.setDescripcion(carrera.getDescripcion());
         carreraDTO.setDuracion(carrera.getDuracion());
         carreraDTO.setCurso(curso);
-                
+
         return carreraDTO;
-   
+
     }
 
     @Override
     public Carrera buscarPorId(Long id) {
+        log.info("Buscando carrera por ID: {}", id);
 
         return carreraRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Carrera no encontrada con el id " + id.toString()));
 
@@ -66,11 +71,14 @@ public class CarreraServiceImpl implements CarreraService {
 
     @Override
     public Carrera findByNombre(String nombre) {
+        log.info("Buscando carrera por nombre: {}", nombre);
+
         return carreraRepository.findByNombre(nombre).orElseThrow(() -> new EntityNotFoundException("Carrera no encontrada con el nombre" + nombre.toString()));
     }
 
     @Override
     public Carrera agregarCarrera(Carrera carrera) {
+        log.info("Agregando nueva carrera");
 
         return carreraRepository.save(carrera);
 
@@ -78,6 +86,7 @@ public class CarreraServiceImpl implements CarreraService {
 
     @Override
     public Carrera actualizarCarrera(Carrera carrera) {
+        log.info("Actualizando carrera con ID: {}", carrera.getId());
 
         var CarreraF = carreraRepository.findById(carrera.getId()).get();
         CarreraF.setCodigoC(carrera.getCodigoC());
@@ -92,6 +101,7 @@ public class CarreraServiceImpl implements CarreraService {
 
     @Override
     public void eliminarCarrera(Long id) {
+        log.info("Eliminando carrera con ID: {}", id);
 
         var CarreraF = carreraRepository.findById(id).get();
 
@@ -101,9 +111,10 @@ public class CarreraServiceImpl implements CarreraService {
 
     @Override
     public Carrera findByCodigoC(Long codigoC) {
-        
-        return carreraRepository.findByCodigoC(codigoC).orElseThrow(() -> new EntityNotFoundException("Carrera no encontrada con el Codigo"+codigoC.toString()));
-        
+        log.info("Buscando carrera por Código: {}", codigoC);
+
+        return carreraRepository.findByCodigoC(codigoC).orElseThrow(() -> new EntityNotFoundException("Carrera no encontrada con el Codigo" + codigoC.toString()));
+
     }
 
 }
